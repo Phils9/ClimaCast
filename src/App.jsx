@@ -32,7 +32,7 @@ function App() {
       <div>
         <button
           onClick={async () => {
-            const data = await fetchWeather("Lagos"); // ✅ Now defined
+            const data = await fetchWeather("London"); // ✅ Now defined
             console.log(data);
           }}
           className="bg-green-500 p-2 text-white rounded">

@@ -10,8 +10,7 @@ export async function fetchWeather(city) {
     if (data.cod === "404") throw new Error("City not found");
     return data;
  } catch (error) {
-    // Example: Log the error for debugging
-    console.error("API Error:", error.message);
+    console.error("API Error:", error.message); //Log the error for debugging
     // Re-throw a user-friendly error
     throw new Error("Failed to fetch weather data. Please try again.");
    }
