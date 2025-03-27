@@ -1,46 +1,32 @@
 import { useState } from 'react';
-import { fetchWeather } from './utils/api'; // 👈 Import the function
-import reactLogo from './assets/react.svg';
-import viteLogo from '/vite.svg';
-import './App.css';
+import { fetchWeather } from './utils/api';
+import SearchBar from './components/SearchBar';
+import WeatherDisplay from './components/WeatherDisplay';
+import Error from './components/Error';
 
-function App() {
-  const [count, setCount] = useState(0);
+export default function App() {
+  const [weatherData, setWeatherData] = useState(null);
+  const [error, setError] = useState('');
+
+  const handleSearch = async (city) => {
+    try {
+      const data = await fetchWeather(city);
+      setWeatherData(data);
+      setError('');
+    } catch (err) {
+      setError(err.message);
+      setWeatherData(null);
+    }
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="min-h-screen bg-gray-100 p-4 md:p-8">
+      <div className="max-w-md mx-auto">
+        <h1 className="text-3xl font-bold text-center mb-6">ClimaCast</h1>
+        <SearchBar onSearch={handleSearch} />
+        <Error message={error} />
+        <WeatherDisplay data={weatherData} />
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-      <div>
-        <button
-          onClick={async () => {
-            const data = await fetchWeather("London"); // ✅ Now defined
-            console.log(data);
-          }}
-          className="bg-green-500 p-2 text-white rounded">
-          Test API
-        </button>                    
-      </div>
-    </>
+    </div>
   );
 }
-
-export default App;
