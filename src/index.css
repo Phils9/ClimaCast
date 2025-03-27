@@ -1,3 +1,21 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Custom background image setup */
+body {
+  margin: 0;
+}
+
+/* Ensure full-screen layout */
+.min-h-screen {
+  min-height: 100vh;
+}
+
+/* Center content vertically/horizontally */
+.flex-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

@@ -26,12 +26,39 @@ export default function App() {
   };
   
   return (
-    <div className="min-h-screen bg-gray-100 p-4 md:p-8">
-      <div className="max-w-md mx-auto">
-        <h1 className="text-3xl font-bold text-center mb-6">ClimaCast</h1>
-        <SearchBar onSearch={handleSearch} />
-        <Error message={error} />
-        <WeatherDisplay data={weatherData} />
+    <div className="min-h-screen relative">
+      {/* Background Image */}
+      <div className="absolute inset-0 z-0">
+        <img
+          src="/background.png" // Replace with your image path
+          alt="Background"
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-black/30"></div> {/* Overlay */}
+      </div>
+
+      {/* Content */}
+      <div className="relative z-10 min-h-screen flex flex-col items-center pt-8 px-4">
+        {/* Header with Logo and Title */}
+        <div className="w-full max-w-md mb-8 flex items-center justify-start">
+          {/* Logo (replace with your logo image) */}
+          <img
+            src="/logo.png" // Replace with your logo path
+            alt="ClimaCast Logo"
+            className="w-12 h-12 mr-4"
+          />
+          {/* Title */}
+          <h1 className="text-4xl font-bold text-white text-center flex-grow">
+            ClimaCast
+          </h1>
+        </div>
+
+        {/* Search & Weather Card */}
+        <div className="w-full max-w-md">
+          <SearchBar onSearch={handleSearch} />
+          <Error message={error} />
+          <WeatherDisplay data={weatherData} />
+        </div>
       </div>
     </div>
   );
