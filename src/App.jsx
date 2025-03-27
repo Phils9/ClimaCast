@@ -9,6 +9,12 @@ export default function App() {
   const [error, setError] = useState('');
 
   const handleSearch = async (city) => {
+    if (!city.trim()) {
+      setError("Please enter a city name.");
+      setWeatherData(null);
+      return;
+    }
+  
     try {
       const data = await fetchWeather(city);
       setWeatherData(data);
@@ -18,7 +24,7 @@ export default function App() {
       setWeatherData(null);
     }
   };
-
+  
   return (
     <div className="min-h-screen bg-gray-100 p-4 md:p-8">
       <div className="max-w-md mx-auto">
