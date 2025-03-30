@@ -1,21 +1,20 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
-/* Custom background image setup */
+@theme {
+  --color-primary: #3279A2;
+  --color-primaryw: #E5E7EB;
+  --color-primarys: #066196;
+  --color-myblue: #055B8E;
+  --text-color-primary: var(--color-primary);
+  --text-color-primarys: var(--color-primarys);
+  --text-color-primaryw: var(--color-primaryw);
+  --text-color-myblue: var(--color-myblue);
+  --breakpoint-xs: 30rem;
+  --breakpoint-2xl: 100rem;
+  --breakpoint-3xl: 120rem;
+}
+
 body {
-  margin: 0;
+  font-family: 'Inter', sans-serif;
 }
 
-/* Ensure full-screen layout */
-.min-h-screen {
-  min-height: 100vh;
-}
-
-/* Center content vertically/horizontally */
-.flex-col {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
