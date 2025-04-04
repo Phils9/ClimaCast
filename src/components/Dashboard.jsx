@@ -86,14 +86,28 @@ const Dashboard = ({ city }) => {
         {/* Current Weather Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
           {/* Humidity Card */}
-          <div className="bg-blue-500 rounded-lg p-4 flex flex-col items-center">
+          <div className="bg-white/18 rounded-lg p-4 flex flex-col items-center hover:shadow-xl transition-shadow duration-300">
             <h3 className="text-lg font-semibold">Humidity</h3>
-            <p className="text-2xl font-bold mt-2">{weather.main.humidity}%</p>
+            <div className="flex-col flex items-center p-8 justify-center w-full">
+              <img
+                src="https://i.ibb.co/zh8JPRcS/humidity-8691565.png"
+                alt="Humidity"
+                className="w-40 h-40"
+              />
+              <p className="text-2xl font-bold mt-8">{weather.main.humidity}%</p>
+            </div>
           </div>
           {/* Wind Speed Card */}
-          <div className="bg-blue-500 rounded-lg p-4 flex flex-col items-center">
+          <div className="bg-white/18 rounded-lg p-4 flex flex-col items-center hover:shadow-2xl transition-shadow duration-300">
             <h3 className="text-lg font-semibold">Wind Speed</h3>
-            <p className="text-2xl font-bold mt-2">{weather.wind.speed} m/s</p>
+            <div className="flex-col flex items-center p-8 justify-center w-full">
+              <img
+                src="https://i.ibb.co/F49jhfzh/wind-direction-8691349.png"
+                alt="Wind Speed"
+                className="w-40 h-40"
+              />
+              <p className="text-2xl font-bold mt-8">{weather.wind.speed} m/s</p>
+            </div>
           </div>
           {/* Current Forecast Card */}
           <div className="bg-blue-500 rounded-lg p-4 flex flex-col items-center">
