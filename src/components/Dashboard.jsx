@@ -57,7 +57,9 @@ const Dashboard = ({ city }) => {
 
   return (
     <main className="w-full p-4">
-      <h1 className="text-center p-2 font-extrabold text-myblue text-4xl mx-auto">Weather Dashboard of {weather.name}</h1>
+      <h1 className="text-center p-2 font-extrabold text-myblue text-4xl mx-auto">
+        Weather Dashboard of {weather.name}
+      </h1>
       <div className="w-full max-w-5xl bg-myblue text-white rounded-xl p-6 relative shadow-lg mx-auto">
         {/* Weather Header */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4">
@@ -67,10 +69,10 @@ const Dashboard = ({ city }) => {
               {weather.name}
             </h2>
             <p className="text-lg sm:text-xl">{weather.weather[0].description}</p>
+            <p className="text-3xl font-bold">{weather.main.temp}°C</p>
           </div>
           <div className="flex items-center space-x-2 mt-4 sm:mt-0">
             <i className="fas fa-thermometer-half text-2xl"></i>
-            <p className="text-3xl font-bold">{weather.main.temp}°C</p>
           </div>
         </div>
 
