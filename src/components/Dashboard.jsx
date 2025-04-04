@@ -51,7 +51,10 @@ const Dashboard = ({ city }) => {
         {/* Weather Header */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4">
           <div>
-            <h2 className="text-xl sm:text-2xl font-semibold mb-2">{weather.name}</h2>
+            <h2 className="text-xl sm:text-2xl font-semibold mb-2">
+              <i className="fas fa-map-marker-alt mr-2 text-xl sm:text-4xl"></i>
+              {weather.name}
+            </h2>
             <p className="text-lg sm:text-xl">{weather.weather[0].description}</p>
           </div>
           <div className="flex items-center space-x-2 mt-4 sm:mt-0">
