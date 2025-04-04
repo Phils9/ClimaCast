@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 
 const Dashboard = ({ city }) => {
   const [weather, setWeather] = useState(null);
-  const [forecast, setForecast] = useState([]);
+  const [middayForecast, setMiddayForecast] = useState([]);
+  const [upcomingForecast, setUpcomingForecast] = useState([]);
   const apiKey = import.meta.env.VITE_WEATHER_API_KEY;
   const currentDate = new Date(); // Get current date
 
@@ -26,22 +27,32 @@ const Dashboard = ({ city }) => {
 
       // Fetch forecast data (5 day / 3 hour forecast)
       fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`)
-        .then((res) => {
-          if (!res.ok) {
-            throw new Error(`Forecast API error: ${res.status} ${res.statusText}`);
-          }
-          return res.json();
-        })
-        .then((data) => {
-          const middayForecasts = data.list.filter(item => item.dt_txt.includes("12:00:00"));
-          setForecast(middayForecasts.slice(0, 3));
-        })
-        .catch((err) => console.error("Error fetching forecast:", err));
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(`Forecast API error: ${res.status} ${res.statusText}`);
+        }
+        return res.json();
+      })
+      .then((data) => {
+        // Upcoming forecast: next 3 intervals (3 hours apart)
+        const now = Date.now();
+        const upcoming = data.list.filter(item => item.dt * 1000 > now).slice(0, 3);
+        setUpcomingForecast(upcoming);
+
+        // 3-Day Forecast: filter entries at 12:00:00
+        const middayForecasts = data.list.filter(item => item.dt_txt.includes("12:00:00"));
+        setMiddayForecast(middayForecasts.slice(0, 3));
+      })
+      .catch((err) => console.error("Error fetching forecast:", err));
     }
   }, [city, apiKey]);
 
   if (!weather) {
-    return <div className="text-center text-black text-4xl">Please enter a city to view the weather condition!</div>;
+    return (
+      <div className="text-center text-black text-4xl">
+        Please enter a city to view the weather condition!
+      </div>
+    );
   }
 
   return (
@@ -95,17 +106,20 @@ const Dashboard = ({ city }) => {
 
         {/* 3-Day Forecast Section */}
         <section>
-          <h3 className="text-2xl font-bold mb-4">3-Day Forecast</h3>
+        <h3 className="text-2xl font-bold mb-4">3-Day Forecast</h3>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            {forecast.map((item, index) => (
-              <div key={index} className="bg-blue-500 rounded-lg p-4 flex flex-col items-center">
+            {middayForecast.map((item, index) => (
+              <div key={index} className="bg-white/18 rounded-lg p-4 flex flex-col items-center hover:shadow-xl transition-shadow duration-300">
                 <h4 className="text-lg font-semibold">
-                  {new Date(item.dt * 1000).toLocaleDateString(undefined, { weekday: 'long' })}
+                  {new Date(item.dt * 1000).toLocaleDateString(undefined, { weekday: "long" })}
                 </h4>
+                <img
+                  src={`http://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png`}
+                  alt={item.weather[0].description}
+                  className="w-10 h-10 mt-1"
+                />
                 <p className="text-xl font-bold mt-2">{item.main.temp}°C</p>
                 <p className="capitalize">{item.weather[0].description}</p>
-                {/* Icon handling can be improved based on your requirements */}
-                <i className={`fas fa-${item.weather[0].icon}`} />
               </div>
             ))}
           </div>
